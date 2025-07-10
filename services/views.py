@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from users.models import Company, Customer, User
+from users.models import Company, Customer
 
 from .models import Service, ServiceRequest # Import ServiceRequest
 from .forms import CreateNewService, RequestServiceForm

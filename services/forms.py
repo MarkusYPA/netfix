@@ -1,7 +1,5 @@
 from django import forms
 
-from users.models import Company
-
 
 # A form for creating a new service.
 class CreateNewService(forms.Form):
