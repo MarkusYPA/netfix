@@ -6,10 +6,12 @@ from django.core.exceptions import ValidationError
 from .models import User, Company, Customer
 
 
+# A custom date input widget to ensure the browser renders a date picker.
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+# A validator to ensure that a user cannot register with an email that already exists in the database.
 def validate_email(value):
     # In case the email already exists in an email input in a registration form, this function is fired
     if User.objects.filter(email=value).exists():
@@ -17,13 +19,29 @@ def validate_email(value):
             value + " is already taken.")
 
 
+# A form for creating a new customer account.
 class CustomerSignUpForm(UserCreationForm):
-    email = forms.EmailField(required=True, validators=[validate_email])
-    date_of_birth = forms.DateField(widget=DateInput)
+    email = forms.EmailField(
+        required=True,
+        validators=[validate_email],
+        widget=forms.EmailInput(attrs={'placeholder': 'Email'})
+    )
+    date_of_birth = forms.DateField(
+        widget=DateInput(attrs={'placeholder': 'Date of Birth'})
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User
 
+    def __init__(self, *args, **kwargs):
+        super(CustomerSignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm password'
+        self.fields['password2'].help_text = ''
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].help_text = ''
+
+    # The save method is wrapped in a transaction to ensure that both the user and the customer are created successfully.
     @transaction.atomic
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -37,13 +55,30 @@ class CustomerSignUpForm(UserCreationForm):
         return user
 
 
+# A form for creating a new company account.
 class CompanySignUpForm(UserCreationForm):
-    email = forms.EmailField(required=True, validators=[validate_email])
-    field = forms.ChoiceField(choices=Company._meta.get_field('field').choices)
+    email = forms.EmailField(
+        required=True,
+        validators=[validate_email],
+        widget=forms.EmailInput(attrs={'placeholder': 'Email'})
+    )
+    field = forms.ChoiceField(
+        choices=Company._meta.get_field('field').choices,
+        widget=forms.Select(attrs={'placeholder': 'Field'})
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User
 
+    def __init__(self, *args, **kwargs):
+        super(CompanySignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm password'
+        self.fields['password2'].help_text = ''
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].help_text = ''
+
+    # The save method is wrapped in a transaction to ensure that both the user and the company are created successfully.
     @transaction.atomic
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -57,6 +92,7 @@ class CompanySignUpForm(UserCreationForm):
         return user
 
 
+# A form for logging in a user.
 class UserLoginForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'placeholder': 'Enter Email'}))

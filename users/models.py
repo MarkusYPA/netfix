@@ -3,18 +3,24 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+# A custom user model that extends the default Django user model.
+# This allows us to add custom fields to the user model.
 class User(AbstractUser):
     is_company = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
     email = models.CharField(max_length=100, unique=True)
 
 
+# A model to store customer-specific information.
+# This model has a one-to-one relationship with the User model.
 class Customer(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     date_of_birth = models.DateField(null=True, blank=True)
 
 
+# A model to store company-specific information.
+# This model has a one-to-one relationship with the User model.
 class Company(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)

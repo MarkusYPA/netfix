@@ -6,6 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from users.models import Company, Customer
 
 
+# A model to store information about a service.
 class Service(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
@@ -34,6 +35,7 @@ class Service(models.Model):
         return self.name
 
 
+# A model to store information about a service request.
 class ServiceRequest(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
@@ -44,6 +46,7 @@ class ServiceRequest(models.Model):
     def __str__(self):
         return f"{self.customer.user.username} requested {self.service.name}"
 
+    # A property to calculate the cost of the service request.
     @property
     def cost(self):
         return self.service.price_hour * self.service_time

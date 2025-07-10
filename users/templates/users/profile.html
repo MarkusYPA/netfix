@@ -4,34 +4,28 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_customer %}
-        <div style="display: ruby;">
-            <h1>{{ user.username }} ({{user_age}} y/o)</h1>
-            <p>{{ user.email }}</p>
-            <p style="float: right;">Customer</p>
-        </div>
-    {% elif user.is_company %}
-        <div style="display: ruby;">
-            <h1>{{ user.username }}</h1>
-            <p> {{ user.email }}</p>
-            <p style="float: right;">{{ company.field }} Company</p>
-        </div>
-    {% endif %}
+    <p class="title">{{ user.username }}'s Profile</p>
+    <p>Email: {{ user.email }}</p>
 
     {% if user.is_customer %}
+        <p>Customer</p>
+        <p>Date of Birth: {{ customer.date_of_birth }} (Age: {{ user_age }})</p>
+
         <p class="title">Previous Requested Services</p>
+        <div class="requested-services-grid">
         {% for service_request in requested_services %}
-            <div>
-                <a href="/services/{{service_request.service.id}}">{{service_request.service.name}}</a> ({{service_request.service.field}})
-                <p style="margin: 0; display: inline-block;"> ❱❱ {{service_request.cost}}</p>
-                <p style="margin: 0; display: inline-block;"> ❱❱ {{ service_request.request_date }}</p>
-                <p style="float: right; margin: 0;">
-                    by <a href="/company/{{service_request.service.company.user.username}}">{{service_request.service.company.user.username}}</a>
-                </p>
+            <div class="service-request-item">
+                <p class="service-request-name"><a href="/services/{{service_request.service.id}}">{{service_request.service.name}}</a> ({{service_request.service.field}})</p>
+                <p class="service-request-cost">Cost: {{service_request.cost|floatformat:2}}€</p>
+                <p class="service-request-date">Date: {{ service_request.request_date }}</p>
+                <p class="service-request-company">by <a href="/company/{{service_request.service.company.user.username}}">{{service_request.service.company.user.username}}</a></p>
             </div>
-            <div class="line"></div>
         {% endfor %}
+        </div>
     {% elif user.is_company %}
+        <p>{{ company.field }} Company</p>
+        <p>Field: {{ company.field }}</p>
+
         <p class="title">Available Services</p>
         {% for service in services %}
         <div class="list_services_profile">

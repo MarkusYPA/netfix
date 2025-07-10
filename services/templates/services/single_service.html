@@ -3,13 +3,13 @@
     {{ service.name }}
 {% endblock %}
 {% block content %}
-    <div class='service_info_header'>
-        <h1>{{service.name}} -- {{service.price_hour}}€/hour</h1>
-        <h5>by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></h5>
+    <div class='service_info_container'>
+        <h1 class="service-detail-name">{{service.name}} -- {{service.price_hour|floatformat:2}}€/hour</h1>
+        <h5 class="service-detail-company">by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></h5>
+        <h3 class="service-detail-field">{{service.field}}</h3>
+        <p class="service-detail-description">{{service.description}}</p>
+        {% if request.user.is_customer %}
+            <a href="/services/{{service.id}}/request_service/" class="like_button request-service-button">Request Service</a>
+        {% endif %}
     </div>
-    <h3>{{service.field}}</h3>
-    <p style="text-align: left;">{{service.description}}</p>
-    {% if request.user.is_customer %}
-        <a href="/services/{{service.id}}/request_service/" class="like_button">Request Service</a>
-    {% endif %}
 {% endblock %}

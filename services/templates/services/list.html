@@ -10,6 +10,17 @@
     <div class='services_list'>
         {% if services %}
             {% for service in services.all %}
+                <div class="service-header">
+                    <a href="/services/{{service.id}}">
+                        <p class="service-name">{{service.name}}</p>
+                    </a>
+                    <p class="service-description">{{service.description}}</p>
+                    <p class="service-price">{{service.price_hour}} $/hour</p>
+                    <p class="service-company-info">by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></p>
+                </div>
+                {% if forloop.counter != services.all|length %}
+                    <div class="line"></div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <h2>Sorry No services available yet</h2>

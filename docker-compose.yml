@@ -4,11 +4,12 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
-      - netfix_data:/app/db.sqlite3
+      - netfix_data:/app/data
     ports:
       - "8000:8000"
     environment:
       - DEBUG=1
+      - RUNNING_IN_DOCKER=true
 
 volumes:
   netfix_data:
