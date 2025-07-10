@@ -36,3 +36,39 @@ Understanding how data moves through a Django application is key to understandin
 6.  **The Response:** The view renders the template with the data, creating a complete HTML page. This page is then sent back to the user's browser to be displayed.
 
 This entire process happens on the server, which is why Django is a server-side framework. By the time the page reaches the user's browser, it's a fully-formed HTML document.
+
+## Case Example: Adding Data to the Database (Creating a New Service)
+
+Let's walk through how a new service is added to the database, using the `services` app as an example.
+
+1.  **User Interaction (Browser):** A company user navigates to the "Create Service" page (e.g., `/services/create/`). They fill out a form with details like service name, description, price, and field.
+
+2.  **Form Submission (HTTP POST Request):** When the user clicks "Submit", their browser sends an HTTP POST request to the Django server, containing the form data.
+
+3.  **URL Routing (`services/urls.py`):** Django receives the POST request for `/services/create/`. It consults `services/urls.py` and routes this request to the `create` function in `services/views.py`.
+
+4.  **View Processing (`services/views.py` - `create` function):**
+    *   The `create` view receives the POST request.
+    *   It instantiates a Django `Form` (e.g., `CreateNewService`) with the submitted data (`request.POST`).
+    *   It validates the form data (e.g., checks if all required fields are present, if data types are correct).
+    *   If the form is valid, the view extracts the cleaned data (e.g., `form.cleaned_data['name']`, `form.cleaned_data['description']`).
+    *   Crucially, it then interacts with the database using the `Service` model:
+        ```python
+        Service.objects.create(
+            company=company,
+            name=name,
+            description=description,
+            price_hour=price_hour,
+            field=field
+        )
+        ```
+        Here, `Service` is a Django model defined in `services/models.py`. `Service.objects` is Django's **Object-Relational Mapper (ORM)** manager. The `create()` method is an ORM method that takes Python keyword arguments corresponding to the model's fields.
+
+5.  **Database Interaction (Django ORM & SQLite3):**
+    *   When `Service.objects.create()` is called, the Django ORM translates this Python command into an appropriate SQL `INSERT` statement.
+    *   Since this project uses `db.sqlite3` (a file-based database), the ORM executes this SQL statement against the SQLite3 database file.
+    *   The new service record is then permanently saved in the `db.sqlite3` file.
+
+6.  **Redirection/Response:** After successfully saving the data, the `create` view typically redirects the user to another page (e.g., `/services/`) to show the updated list of services, or renders a success message.
+
+This process demonstrates how Django's ORM allows developers to work with database records as if they were regular Python objects, abstracting away the complexities of SQL and database-specific interactions (like those with SQLite3).
