@@ -55,7 +55,10 @@ a:hover {
 .content p {
   text-align: center;
   margin: 15px 0;
-  /* white-space: pre-line; */
+}
+
+.service_info_container p {
+  text-align: start;
 }
 
 .title {
@@ -372,6 +375,13 @@ span {
 .service-detail-description {
   text-align: left;
   margin-bottom: 10px;
+}
+
+.service-detail-date {
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+  margin-top: 15px;
+  text-align: left;
 }
 
 .request-service-button {

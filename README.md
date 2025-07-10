@@ -61,6 +61,36 @@ To stop the Docker containers, press `Ctrl+C` in the terminal where `docker-comp
 docker-compose down -v
 ```
 
+### Running the Project with a Docker Script
+
+For a quicker setup without creating a superuser, you can use the provided `run_docker.sh` script.
+
+1.  **Make the script executable:**
+
+    ```bash
+    chmod +x run_docker.sh
+    ```
+
+2.  **Run the script:**
+
+    ```bash
+    ./run_docker.sh
+    ```
+
+    This script will build and start the Docker containers, apply migrations, and wait for the web service to be ready.
+
+### Accessing the Application (Script Method)
+
+-   **Homepage:** Open your web browser and go to `http://localhost:8000/`
+
+### Stopping the Application (Script Method)
+
+To stop the Docker containers, run:
+
+```bash
+docker-compose down -v
+```
+
 ## How to Run the Project (Python Only)
 
 Follow these steps to get the Netfix project up and running using only Python.
@@ -118,7 +148,7 @@ Follow these steps to get the Netfix project up and running using only Python.
     python3 manage.py runserver
     ```
 
-    The server will typically start at `http://127.0.0.1:8000/`.
+    The server will typically start at `http://127.0.0.1:8000/`
 
 ### Accessing the Application
 
