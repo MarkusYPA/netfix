@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% block title %}
+    Request Service
+{% endblock %}
+
+{% block content %}
+    <p class="title">Request Service: {{ service.name }}</p>
+    <p>Description: {{ service.description }}</p>
+    <p>Price per hour: {{ service.price_hour }}€</p>
+    <p>Field: {{ service.field }}</p>
+    <p>Provided by: <a href="/company/{{ service.company.user.username }}">{{ service.company.user.username }}</a></p>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Request</button>
+        </form>
+    </div>
+{% endblock %}
