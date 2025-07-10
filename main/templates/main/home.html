@@ -19,7 +19,10 @@
                     </a>
                     <p class="service-description">{{service.description}}</p>
                     <p class="service-price">{{service.price_hour|floatformat:2}} $/hour</p>
-                    <p class="service-company-info">by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></p>
+                    <p class="service-company-info">
+                        by <a href="/company/{{service.company.user}}">{{service.company.user}}</a>
+                        <br>{{ service.date|date:"F d, Y" }}                            
+                    </p>
                 </div>
                 {% if forloop.counter != top_services|length %}
                     <div class="line"></div>
