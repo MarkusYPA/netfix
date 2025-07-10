@@ -24,5 +24,5 @@ class CreateNewService(forms.Form):
 
 
 class RequestServiceForm(forms.Form):
-    address = forms.CharField(widget=forms.Textarea, label='Address')
-    service_time = forms.DecimalField(decimal_places=2, max_digits=5, min_value=0.00, label='Service Time (hours)')
+    address = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter Address'}), label='Address')
+    service_time = forms.DecimalField(decimal_places=2, max_digits=5, min_value=0.00, widget=forms.NumberInput(attrs={'placeholder': 'Enter service hours'}), label='Service Time (hours)')

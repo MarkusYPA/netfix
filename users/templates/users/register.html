@@ -1,28 +1,29 @@
-{% extends 'main/base.html' %} 
+{% extends 'main/base.html' %}
+{% load static %}
 {% block title %}
   User Type
 {%endblock %}
 
 {%block content %}
-    <p class="choice_text">Choose wether you want to be a customer or a company</p>
+    <p class="title">Choose wether you want to be a customer or a company</h3>
     
-    <div style="margin-top: 70px;">
-        <div style="margin-left: 50px" class="choice">
+    <div class="choice-container">
+        <div class="choice">
             <div class="company img" id="company">
                 <a href="/register/company">
-                    <img src="/static/css/company.png" alt="company" >
+                    <img src="{% static 'company.png' %}" alt="company" >
                 </a>
             </div>
             <p class="label_images">Company</p>
         </div>
 
-        <div style="float: right; margin-right: 50px;" class="choice">
+        <div class="choice">
             <div class="img" id="customer">
                 <a href="/register/customer">
-                    <img src="/static/css/customer.png" alt="customer">
+                    <img src="{% static 'customer.png' %}" alt="customer">
                 </a>
             </div>
-            <p>Customer</p>
+            <p class="label_images">Customer</p>
         </div>
     </div>
 {% endblock %}

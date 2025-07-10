@@ -1,0 +1,17 @@
+
+Admin (http://127.0.0.1:8000/admin/)
+markus
+m@a.com
+markus
+
+Profiles:
+  Customers:
+   * Username: customer1 / customer2
+   * Email: customer1@example.com / customer2@example.com
+   * Password: password123
+
+
+  Companies:
+   * Username: company1 / company2 / allinone
+   * Email: company1@example.com / company2@example.com / allinone@example.com
+   * Password: password123
