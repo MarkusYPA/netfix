@@ -63,13 +63,13 @@ def service_field(request, field):
     # search for the service present in the url
     field = field.replace('-', ' ').title()
     services = Service.objects.filter(
-        field=field)
+        field=field).order_by("-date")
     return render(request, 'services/field.html', {'services': services, 'field': field})
 
 
 # A view for requesting a service. This view is only accessible to logged-in customers.
-@login_required
-def request_service(request, id):
+@login_required                     # @login_required decorator is a built-in feature of Django's authentication system (checks active session and logged in)
+def request_service(request, id):   # Django has attached a User object (users.User) to the request object when they logged in with middleware
     # Redirect the user if they are not a customer.
     if not request.user.is_customer:
         return redirect('/')
@@ -95,12 +95,3 @@ def request_service(request, id):
     else:
         form = RequestServiceForm()
     return render(request, 'services/request_service.html', {'form': form, 'service': service})
-
-
-# Renders a list of the most requested services.
-def most_requested_services(request):
-    # Get the top 10 most requested services.
-    services = Service.objects.annotate(
-        num_requests=Count('servicerequest')
-    ).order_by('-num_requests')[:10] # Top 10 most requested services
-    return render(request, 'services/most_requested.html', {'services': services})

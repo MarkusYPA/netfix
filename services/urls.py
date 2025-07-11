@@ -7,5 +7,4 @@ urlpatterns = [
     path('<int:id>', v.index, name='index'),
     path('<int:id>/request_service/', v.request_service, name='request_service'),
     path('<slug:field>/', v.service_field, name='services_field'),
-    path('most_requested/', v.most_requested_services, name='most_requested_services'),
 ]

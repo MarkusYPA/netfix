@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView
 from django.contrib import messages # Import messages
 
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
-from .models import User, Company, Customer
+from .models import User
 
 
 # Renders the main registration page where the user can choose to sign up as a customer or a company.

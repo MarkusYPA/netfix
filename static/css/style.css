@@ -349,7 +349,7 @@ span {
   margin: 0; /* Remove default paragraph margins */
 }
 
-.service-name {
+.service-name a {
   font-weight: bold;
 }
 

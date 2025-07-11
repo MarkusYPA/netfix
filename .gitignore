@@ -1,2 +1,5 @@
 .DS_Store
 assets-work/
+db.sqlite3
+data/
+venv/

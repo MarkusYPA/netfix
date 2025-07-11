@@ -21,7 +21,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from . import views as v
-from services import views as services_views
 
 # The urlpatterns list routes URLs to views.
 urlpatterns = [
@@ -34,11 +33,9 @@ urlpatterns = [
     # Include URLs from the 'users' app (for registration)
     path('register/', include('users.urls')),
     # URL for customer profiles
-    path('customer/<slug:name>', v.customer_profile, name='customer_profile'),
+    path('customer/<slug:name>', v.customer_profile, name='customer_profile'),  # extracts 'name' from url and passes it to customer_profile function (with request)
     # URL for company profiles
     path('company/<slug:name>', v.company_profile, name='company_profile'),
-    # URL for displaying most requested services
-    path('most_requested/', services_views.most_requested_services, name='most_requested_services'),
 ]
 
 # Serve static files during development

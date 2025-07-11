@@ -13,10 +13,11 @@
     <div class='services_list'>
         {% if top_services %}
             {% for service in top_services %}
-                <div class="service-header">
-                    <a href="/services/{{service.id}}">
-                        <p class="service-name">{{service.name}}</p>
-                    </a>
+                <div class="service-header">                    
+                    <p class="service-name">
+                        <a href="/services/{{service.id}}">{{service.name}}</a><br>
+                        {{ service.num_requests }} requests
+                    </p>                    
                     <p class="service-description">{{service.description}}</p>
                     <p class="service-price">{{service.price_hour|floatformat:2}} $/hour</p>
                     <p class="service-company-info">

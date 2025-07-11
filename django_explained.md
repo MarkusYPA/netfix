@@ -1,5 +1,8 @@
 # Understanding Django and This Project
 
+#### *"You should learn PHP, understand what is hell, then come back here."* - _gipi_
+
+
 This document provides a high-level overview of the Django framework and the structure of this project. It's designed to be a quick and easy-to-understand guide for anyone new to Django.
 
 ## What is Django?
