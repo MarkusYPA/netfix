@@ -20,7 +20,7 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from . import views as v
+from users import views as user_views
 
 # The urlpatterns list routes URLs to views.
 urlpatterns = [
@@ -32,10 +32,8 @@ urlpatterns = [
     path('services/', include('services.urls')),
     # Include URLs from the 'users' app (for registration)
     path('register/', include('users.urls')),
-    # URL for customer profiles
-    path('customer/<slug:name>', v.customer_profile, name='customer_profile'),  # extracts 'name' from url and passes it to customer_profile function (with request)
-    # URL for company profiles
-    path('company/<slug:name>', v.company_profile, name='company_profile'),
+    path('customer/<slug:name>', user_views.customer_profile, name='customer_profile'),
+    path('company/<slug:name>', user_views.company_profile, name='company_profile'),
 ]
 
 # Serve static files during development
